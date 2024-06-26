@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Text Based on Key Press</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #text-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            font-size: 24px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var textContainer = document.getElementById("text-container");
+
+            document.addEventListener("keydown", function(event) {
+                var key = event.key;
+
+                // Determine category based on ASCII value ranges
+                var category = getCategory(key.charCodeAt(0));
+
+                // Update text content based on key pressed
+                textContainer.textContent = `Pressed key: ${key} (${category})`;
+            });
+
+            function getCategory(charCode) {
+                if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)) {
+                    return "Alphabet Key (A-Z and a-z)";
+                } else if (charCode >= 48 && charCode <= 57) {
+                    return "Number Key (0-9)";
+                } else if (charCode >= 37 && charCode <= 40) {
+                    return "Arrow Key (up/down/left/right)";
+                } else if (charCode === 17 || charCode === 18 || charCode === 27) {
+                    return "Special Key (ctrl/alt/esc)";
+                } else {
+                    return "Other Key (symbols, enter, shift, del, etc.)";
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="text-container">Press any key...</div>
+</body>
+</html>
